@@ -12,7 +12,7 @@ using namespace std;
 
 //Definição do Compilador
 #define LANG_NAME   "EZL"
-#define VERSION     "2.0"
+#define VERSION     "2.0.1"
 #define RELEASE_DATE "15 de dezembro de 2022"
 
 //Funções e variáveis externas
@@ -110,44 +110,47 @@ void printVersion(){
  * @param argc o número de argumentos enviados
  * @param argv os argumentos enviados
 */
-void parseArguments(int argc, char* argv[]){
-    while(++argv, --argv){
-        if(**argv == '-'){
-            if(strcmp(*argv, "-h")==0 || strcmp(*argv, "--help")==0){
+void parseArguments(int argc, char* argv[]) {
+    while (++argv, --argc) {
+        if (**argv == '-') {
+            if (strcmp(*argv, "-h") == 0 || strcmp(*argv, "--help") == 0) {
                 printHelp();
             }
-            else if(strcmp(*argv, "-v")==0 || strcmp(*argv, "--version")==0){
+            else if (strcmp(*argv, "-v") == 0 || strcmp(*argv, "--version") == 0) {
                 printVersion();
             }
-            else if(strcmp(*argv, "-o")==0 || strcmp(*argv, "--output")==0){
-                if(--argc < 1){
-                    fprintf(stderr, "[ERROR]: Missing output filename\n\n");
-                    printHelp();
-                }
-                outputFilename = string(*(++argv));
-            } 
-            else if(strcmp(*argv, "-s")==0 || strcmp(*argv, "--sym_table")==0){
-                if(--argc < 1){
-                    fprintf(stderr, "[ERROR]: Missing output filename\n\n");
-                    printHelp();
-                }
-                symbolTableFilename = string(*(++argv));
-            } 
-            else if(strcmp(*argv, "-w")==0 || strcmp(*argv, "--warn")==0){
-              warn = true;
+            else if (strcmp(*argv, "-w") == 0 || strcmp(*argv, "--warn") == 0) {
+                warn = true;
             }
-            else{
-                fprintf(stderr, "Unknown Argument '%s'\n", *argv);
+            else if (strcmp(*argv, "-o") == 0 || strcmp(*argv, "--output") == 0) {
+                if (--argc < 1) {
+                    fprintf(stderr, "error: missing output filename!\n\n");
+                    printHelp();
+                }
+
+                outputFilename = string(*(++argv));
+            }
+            else if (strcmp(*argv, "-s") == 0 || strcmp(*argv, "--sym_table") == 0) {
+                if (--argc < 1) {
+                    fprintf(stderr, "error: missing output filename!\n\n");
+                    printHelp();
+                }
+
+                symbolTableFilename = string(*(++argv));
+            }
+            else {
+                fprintf(stderr, "unknown argument '%s'\n", *argv);
             }
         }
-        else if(inputFilename.empty()){
+        else if (inputFilename.empty()) {
             inputFilename = string(*argv);
-        }else{
-          fprintf(stderr, "WARNING: Too many arguments, '%s' ignored\n",*argv);  
+        }
+        else {
+            fprintf(stderr, "warning: too many arguments, '%s' ignored\n", *argv);
         }
     }
-    if(inputFilename.empty()){
-        fprintf(stderr,"[ERROR]: Missing input filename argument\n\n");
+    if (inputFilename.empty()) {
+        fprintf(stderr, "error: missing input filename argument!\n\n");
         printHelp();
     }
 }
