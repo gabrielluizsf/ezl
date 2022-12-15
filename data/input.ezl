@@ -1,0 +1,6 @@
+int fib(int number){
+    return fib(number) + fib(number-1);
+}
+int main(){
+    fib(10.5"r782fjsf");
+}
