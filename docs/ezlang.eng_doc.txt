@@ -1,0 +1,357 @@
+🇧🇷
+🇧🇷 🇧🇷
+🇧🇷 EZLanguage Project |
+🇧🇷 🇧🇷
+🇧🇷 By: Gabriel Luiz |
+🇧🇷
+                 Introduction:
+EZL is a simple programming language compiler similar to C language but with less functionality,
+yet EZL preserves the complex expressions and branching instructions of the C language.
+In EZL, we use Flex (a Lex-like compiler generation tool) to generate the lexer parser and
+used Bison (a Yacc-like compiler generation tool) to generate the parser.
+Although EZL is a mini version of the C language, it provides powerful error handling techniques with
+Significant error message reports for various syntax and semantic error scenarios.
+Overview
+In this section, we will give a brief description and examples for the syntax and semantics
+permitted by the EZL. As we said, it is almost identical to the C language, but with fewer features.
+
+             Data types:
+
+In the EZL, we support basic data types, but unfortunately, we don't support arrays or pointers.
+Supported types:
+• void: Only valid as a function return type to indicate that there is no value to return
+• int: It is an integer numeric value data type.
+• char: It is a character value data type.
+• float: It is a real numeric value data type.
+• char: It is a character value data type.
+• bool: It is a boolean value data type that accepts true or false.
+
+
+             Variable/Constant Declarations:
+
+In EZL, we support declaring scoped variables and constants. Each variable or constant has its own
+scope and multiple variables/constants can be declared with the same identifier only if they are in
+different scopes. As in the C language, constants must be initialized when they are declared.
+for example:
+
+🇧🇷
+int x;
+const float PI = 3.14;
+char c = 'c';
+bool flag = true;
+int a = 0, b, MAX = 100;
+🇧🇷
+
+          'If-Else Control Statements:
+
+We support the if-else control statement in almost exactly the same way as in the C language.
+evaluates to a non-zero value, so the if-body will be executed. Otherwise, the other body will be
+executed if it exists. If-body and else-body can be one statement or can be multiple statements
+closed by a block.
+for example:
+
+🇧🇷
+if (x) {
+if (y > 0)
+/* if body */;
+else if (z & 1)
+/* else-if-body */;
+else
+/* else-body */;
+🇧🇷
+🇧🇷
+
+             exchange declarations
+
+Like the if statement, we support the switch statement in almost the same way as in the C language.
+switch-expression must be an integer value and case-expression must be a constant integer value.
+Also, multiple case expressions that evaluate to the same value are not allowed. Like C, the code of
+corresponding case will be executed and execution will continue in the code below other cases until a
+the break statement was encountered.
+
+🇧🇷
+
+switch(state) {
+case 1:
+case 2:
+/* do something */
+case RUNNING: // RUNNING must be set to constant
+/* do something */
+break;
+default:
+/* default */
+🇧🇷
+🇧🇷
+
+             For/While/Do-While Loops
+EZL supports loops in almost exactly the same way as the C language. We support for loops, while loops,
+and do-while loops. Break-statements and continue-statements are supported within the scope of a
+loop and work as in the C language, interrupt or continue the execution of the innermost loop.
+
+examples:
+🇧🇷
+for (initializationStatement; testExpression; updateStatement)
+🇧🇷
+     // statements inside the body of loop
+🇧🇷
+🇧🇷
+while (condition) {
+   // code block to be executed
+🇧🇷
+🇧🇷
+int main(void)
+🇧🇷
+   float grade1=0, grade2=0,average=0;
+   int resp;
+  
+   of
+   🇧🇷
+     printf("Enter the first grade: ");
+     scanf("%f",&note1);
+     printf("Enter the second note: ");
+     scanf("%f",&note2);
+    
+     average = (grade1 + grade2)/2;
+     printf("Student average = %f\n",average);
+    
+     printf("Type 1 to continue or 2 to exit\n");
+     scanf("%d", &resp);
+  
+   }while(resp==1);
+  
+   return 0;
+🇧🇷
+🇧🇷
+
+                 Functions
+
+EZL supports functions but with limited functionalities than C language.
+default parameters. We do not support protection
+
+function typing or function overloading.
+Callback statements are allowed within the scope of a function. And functions can only be defined in the
+Global scope.
+
+example:
+🇧🇷
+int fibonacci(int number) {
+return fibonacci(number - 1) + fibonacci(number - 2);
+🇧🇷
+🇧🇷
+
+                 Expressions
+In EZL, we support complex expressions similar to those of the C language.
+set of operators supported by the C language with the same precedence and associativity.
+
+example:
+🇧🇷
+
+(((++x) = y++) = (5 * 200 - MAX) ^ (1 << id)) = (z = 3);
+🇧🇷
+
+                 Comments
+
+EZL supports the same comment styles as the C language. Comments can be:
+
+• Line comment
+// This is a one-line comment
+
+• Block comment (multi-line comment)
+🇧🇷
+* This is a block comment
+* which may cover
+* multiple lines
+🇧🇷
+
+             [Errors detected]:
+In this section, I'll list some of the syntax and semantic errors that the EZL can detect.
+
+syntax errors
+Scope related errors:
+
+1. Blocks of code or instructions (other than variables, constants and function declaration/definition)
+at the global level.
+2. Continue statement outside for, while, or do-while scopes.
+3. Break-statement outside of for, while, do-while, or switch scopes.
+4. Return statement outside the scope of the function.
+5. Case and default outside the scope of the switch.
+
+Other syntax errors:
+1. Variable or constant declared with type void.
+2. Constant statement without initialization.
+3. Any other invalid syntax
+
+semantic errors
+
+Identifier/expression related errors:
+1. Redeclaration of the identifier in the same scope.
+2. Undeclared identifier access.
+3. Constant attribution after declaration.
+4. Invalid operand types. (that is, operands of type void or pointer to function).
+5. Floating operand for modulus operator.
+6. Floating operand for bitwise operators.
+7. Use of uninitialized variable.
+8. Increment and decrement operators with r-value operand.
+
+Switch statement-related errors
+1. Switch and case statements with non-integer expression.
+2. Case statement with non-constant expression.
+3. Multiple default labels in switch scope.
+4. Multiple labels match the same constant expression in the scope of the switch.
+5. Initialization of cross variables in switch statement.
+
+Function related errors:
+1. Value returned in the void function.
+2. Void returned in the typed value function.
+3. Calling a variable or constant as a function.
+4. Function call with more/less arguments than its parameters.
+5. Function call with invalid argument type (ie argument of type void or function pointer).
+6. Function parameter with default value.
+
+                 [TOKENS]:
+Using Flex to write the regular expression of tokens allowed by EZLang.
+The following table contains a list of these regular expressions.
+
+             Regex token description:
+         [0-9]+ Positive integer
+         (([0-9]*\.[0-9]+)|([0-9]+\.[0-9]*)) Positive floating number
+         ([eE][-+]?{INTEGER}) Exponentiation
+         ({INTEGER}{EXP}|{FLOAT}{EXP}?) Positive real number
+         [_a-zA-Z]([_a-zA-Z]|[0-9])* Identifier
+         (\'.\') Character value
+         Boolean values "true", "false"
+         "void", "bool", "char", "int", "float" Data Types
+         "if", "else", "switch", "case", "default",
+         "to", "do", "while", "break", "continue",
+         "return", "const"
+
+         [Reserved keywords]:
+                 🇧🇷
+             🇧🇷
+             🇧🇷
+             🇧🇷
+             🇧🇷
+             🇧🇷
+
+         [Operators similar to C language]:
+
+     🇧🇷 Other allowed tokens
+     "//"(.)* Line comment
+     [ \t\r\n]+ Whitespace
+
+        [Production rules]:
+
+Using Bison to write the production rules that define the EZLang syntax.
+Using Bison's precedence and associativity features to resolve the following ambiguity:
+1. The precedence and associativity of mathematical operators.
+2. The dangling else problem.
+The following table contains a list of the used production rules.
+Using the following naming convention for the symbols below:
+• Capitalized words for terminal symbols
+• Lowercase words for non-terminal symbols
+
+         [Syntax Production Rule]:
+             Main rules:
+𝑝𝑟𝑜𝑔𝑟𝑎𝑚 → 𝜀
+𝑝𝑟𝑜𝑔𝑟𝑎𝑚 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘 → '{' '}'
+𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘 → '{' 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 '}'
+𝑠𝑡𝑚𝑡 → 𝐵𝑅𝐸𝐴𝐾 ';' 🇧🇷 𝐶𝑂𝑁𝑇𝐼𝑁𝑈𝐸 ';' 🇧🇷 🇧🇷
+𝑠𝑡𝑚𝑡 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ';'
+𝑠𝑡𝑚𝑡 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ';'
+𝑠𝑡𝑚𝑡 → 𝑖𝑓_𝑠𝑡𝑚𝑡 | 𝑠𝑤𝑖𝑡𝑐ℎ_𝑠𝑡𝑚𝑡 | 𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡 → 𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 | 𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 | 𝑑𝑜_𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 ';'
+𝑠𝑡𝑚𝑡 → 𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛 | 𝑟𝑒𝑡𝑢𝑟𝑛_𝑠𝑡𝑚𝑡 ';'
+             Declaration of Variables/Constants
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝐶𝑂𝑁𝑆𝑇 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝑠𝑖
+𝑣_𝑑𝑒𝑐𝑙 → 𝐶𝑂𝑁𝑆𝑇 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 ': =' 𝑒∴
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡
+𝑚𝑢𝑙𝑡𝑖_𝑣_𝑑𝑒𝑐𝑙 → 𝑣_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡 ': =' 𝑒∴
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛
+𝑚𝑢𝑙𝑡𝑖_𝑣_𝑑𝑒𝑐𝑙 → 𝑚𝑢𝑙𝑡𝑖_𝑣_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡 ': =' 𝑒∴
+             Expression Rules
+𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 → 𝑒𝑥𝑝𝑟1 | 𝑒𝑥𝑝𝑟2 | 𝑒𝑥𝑝𝑟3
+𝑒𝑥𝑝𝑟1 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝑂𝑃𝑅𝑏𝑖𝑛𝑎𝑟𝑦 𝑒𝑥𝑝𝑟𝑒𝑠𝑠
+𝑒𝑥𝑝𝑟1 → 𝑂𝑃𝑅𝑢𝑛𝑎𝑟𝑦 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+Note: 𝑂𝑃𝑅𝑏𝑖𝑛𝑎𝑟𝑦 is being substituted by all binary operators and 𝑂𝑃𝑅𝑢𝑛𝑎𝑟𝑦 is being substituted by all
+unary operators except increment and decrement operators
+𝑒𝑥𝑝𝑟2 → 𝐼𝑁𝐶 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝐷𝐸𝐶 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑒𝑥𝑝𝑟2 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝐼𝑁𝐶 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝐷𝐸𝐶
+𝑒𝑥𝑝𝑟3 → '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')'
+𝑒𝑥𝑝𝑟3 → 𝑣𝑎𝑙𝑢𝑒 | 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 | 𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛_𝑐𝑎𝑙𝑙
+             Branch Rules
+𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦 → 𝑠𝑡𝑚𝑡 | 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑖𝑓_𝑠𝑡𝑚𝑡 → 𝐼𝐹 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑖𝑓_𝑠𝑡𝑚𝑡 → 𝐼𝐹 '(' 𝑒̂𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟_𝑏𝑜𝑑𝑦 𝐸𝐿𝑆𝐸 𝑏𝑟_𝑏𝑜𝑑𝑦
+𝑠𝑤𝑖𝑡𝑐ℎ_𝑠𝑡𝑚𝑡 → 𝑆𝑊𝐼𝑇𝐶𝐻 '(' 𝑒̂𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟_𝑏𝑜𝑑𝑦
+𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡 → 𝐶𝐴𝑆𝐸 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ':' 𝑠𝑡𝑚𝑡
+𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡 → 𝐷𝐸𝐹𝐴𝑈𝐿𝑇 ':' 𝑠𝑡𝑚𝑡
+𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 → 𝑊𝐻𝐼𝐿𝑛 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')'
+𝑑𝑜_𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 → 𝐷𝑂 𝑏𝑟_ 𝑊𝐻𝐼𝐿𝐸 𝑊𝐻𝐼𝐿𝐸 '(' 𝑒̂𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')'
+𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 → 𝐹𝑂𝑅 '(' 𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 ';' 𝑓𝑜𝑟_𝑒∴ ''; '𝑓𝑜𝑟_𝑒∴𝑒') '𝑏𝑟_𝑏𝑜𝑑𝑦
+𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 → 𝜀 | 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑓𝑜𝑟_𝑒𝑥𝑝𝑟 → 𝜀 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+
+             Role Rules
+𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 '(' 𝑝_𝑙𝑖𝑠𝑡 ')' 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡 → 𝜀 | 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙
+𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙
+𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛_𝑐𝑎𝑙𝑙 → 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅'
+𝑎𝑟𝑔_𝑙𝑖𝑠𝑡 → 𝜀 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑟𝑒𝑡𝑢𝑟𝑛_𝑠𝑡𝑚𝑡 → 𝑅𝐸𝑇𝑈𝑅𝑁 | 𝑅𝐸𝑇𝑈𝑅𝑁
+Other Rules
+𝑡𝑦𝑝𝑒 → 𝑇𝑌𝑃𝐸_𝑉𝑂𝐼𝐷 | 𝑇𝑌𝑃𝐸_𝐵𝑂𝑂𝐿 | 𝑇𝑌𝑃𝐸_𝐶𝐻𝐴𝑅 | 𝑇𝑌𝑃𝐸_𝐼𝑁𝑇 | 𝑇𝑌𝑃𝐸_𝐹𝐿𝑂𝐴𝑇
+𝑣𝑎𝑙𝑢𝑒 → 𝐵𝑂𝑂𝐿 | 𝐶𝐻𝐴𝑅 |𝐼𝑁𝑇𝐸𝐺𝐸𝑅 | 𝐹𝐿𝑂𝐴𝑇
+
+             quadruplets
+The following table contains a list of quads generated by EZLang.
+Almost every quadruple is associated with a type. Types define the data type and size (number of
+bytes) of the operands and the result of the quadruples, unless otherwise indicated.
+Quads work as follows:
+1. Extracts the operands (if any) from the top of the stack, depending on their type.
+2. Apply the operation defined by the quadruple.
+3. Inserts the result (if available) back on top of the stack.
+In the following table, we denote the top (last element) of the stack as 𝑆1 and the 2nd last element
+from the stack as 𝑆2.
+
+         Quad Operations:
+ADD_<type> 𝑆1 ← (𝑆2 + 𝑆1)
+SUB_<type> 𝑆1 ← (𝑆2 − 𝑆1)
+MUL_<type> 𝑆1 ← (𝑆2 ∗ 𝑆1)
+DIV_<type> 𝑆1 ← (𝑆2/𝑆1)
+MOD_<type> 𝑆1 ← (𝑆2 𝑀𝑂𝐷 𝑆1)
+NEG_<type> 𝑆1 ← (−𝑆1)
+AND_<type> 𝑆1 ← (𝑆2 𝐴𝑁𝐷 𝑆1)
+OR_<type> 𝑆1 ← (𝑆2 𝑂𝑅 𝑆1)
+XOR_<type> 𝑆1 ← (𝑆2 𝑋𝑂𝑅 𝑆1)
+NOT_<type> 𝑆1 ← 𝑁𝑂𝑇(𝑆1)
+SHL_<type> 𝑆1 ← (𝑆2 ≪ 𝑆1)
+SHR_<type> 𝑆1 ← (𝑆2 ≫ 𝑆1)
+GT_<type> 𝑆1 ← (𝑆2 > 𝑆1), Result is boolean
+10 | Page
+GTE_<type> 𝑆1 ← (𝑆2 ≥ 𝑆1), the result is boolean.
+LT_<type> 𝑆1 ← (𝑆2 < 𝑆1), the result is boolean.
+LTE_<type> 𝑆1 ← (𝑆2 ≤ 𝑆1), the result is boolean.
+EQ_<type> 𝑆1 ← (𝑆2 = 𝑆1), the result is Boolean.
+NEQ_<type> 𝑆1 ← (𝑆2 ≠ 𝑆1), the result is boolean.
+Quad conversion type
+<type>_TO_<type> Converts 𝑆1 from type LHS to type RHS.
+stack quads
+PUSH_<type> <value> Pushes <value> to the top of the stack.
+POP_<type> <dst> Prints 𝑆1 and saves to <dst>.
+quadruple jump
+JMP <label> Unconditional jump to the given label.
+JNZ_<type> <label> Jump to the label provided
+do if 𝑆1 is not equal to zero.
+JZ_<type> <label> Jump to the given label if 𝑆1 equals zero.
+Function related quadruplets
+PROC <ident> Defines a new procedure.
+CALL <ident> Calls an already defined procedure.
+RET Return from a procedure
