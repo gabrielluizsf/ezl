@@ -1,0 +1,355 @@
+________________________________________________________
+|                                                      | 
+|		     Projeto EZLanguage		       |
+|                                                      |
+|		By: Gabriel Luiz                       |
+|______________________________________________________|
+                Introdução:
+EZL é um compilador de linguagem de programação simples semelhante à linguagem C, mas com menos funcionalidades,
+ainda EZL preserva as expressões complexas e instruções de ramificação da linguagem C.
+No EZL, usamos o Flex (uma ferramenta de geração de compiladores semelhante ao Lex) para gerar o analisador lexer e
+usou o Bison (uma ferramenta de geração de compilador semelhante ao Yacc) para gerar o analisador de sintaxe.
+Embora o EZL seja uma miniversão da linguagem C, ele fornece técnicas poderosas de tratamento de erros com
+relatórios de mensagens de erro significativas para vários cenários de erro de sintaxe e semântica.
+Visão geral
+Nesta seção, vamos dar uma breve descrição e exemplos para a sintaxe e semântica
+permitido pela EZL. Como dissemos, é quase idêntico à linguagem C, mas com menos recursos.
+
+            Tipos de dados:
+
+No EZL, oferecemos suporte aos tipos de dados básicos, mas, infelizmente, não oferecemos suporte a arrays ou ponteiros.
+Os tipos suportados:
+• void:    Só é válido como um tipo de retorno de função para informar que não há valor para retornar
+• int:     É um tipo de dado de valor numérico inteiro.
+• char:    É um tipo de dado de valor de caractere.
+• float:   É um tipo de dado de valor numérico real.
+• char:    É um tipo de dado de valor de caractere.
+• bool:    É um tipo de dados de valor booleano que aceita verdadeiro ou falso.
+
+
+            Declarações Variáveis/Constantes:
+
+Em EZL, oferecemos suporte à declaração de variáveis ​​e constantes com escopo definido. Cada variável ou constante tem seu próprio
+escopo e várias variáveis/constantes podem ser declaradas com o mesmo identificador apenas se estiverem em
+escopos diferentes. Como na linguagem C, as constantes devem ser inicializadas ao serem declaradas.
+por exemplo:
+
+________________________________________________________
+int x;
+const float PI = 3.14;
+char c = 'c';
+bool flag = true;
+int a = 0, b, MAX = 100;
+______________________________________________________
+
+         'If-Else Control Statements:
+
+Oferecemos suporte à instrução de controle if-else quase exatamente da mesma maneira que na linguagem C. Se a condição if
+avalia para um valor diferente de zero, então o if-body será executado. Caso contrário, o outro corpo será
+executado se existir. If-body e else-body podem ser uma declaração ou podem ser várias declarações
+fechado por um bloco.
+por exemplo:
+
+______________________________________________________
+if (x) {
+if (y > 0)
+/* if-body */;
+else if (z & 1)
+/* else-if-body */;
+else
+/* else-body */;
+}
+______________________________________________________
+
+            Declarações de troca
+
+Assim como a instrução if, oferecemos suporte à instrução switch quase da mesma maneira que na linguagem C. o
+switch-expression deve ser de valor inteiro e a case-expression deve ser um valor inteiro constante.
+Além disso, não são permitidas várias expressões de caso que avaliam o mesmo valor. Como C, o código do
+caso correspondente será executado e a execução continuará no código abaixo de outros casos até que um
+a instrução break foi encontrada.
+
+______________________________________________________
+
+switch (state) {
+case 1:
+case 2:
+/* do something */
+case RUNNING: // RUNNING deve ser definido como constante
+/* do something */
+break;
+default:
+/* default */
+}
+______________________________________________________
+
+            Loops For/While/Do-While
+EZL suporta loops quase exatamente da mesma maneira que na linguagem C. Damos suporte a loops for, loops while,
+e loops do-while. Break-statements e continue-statements são suportados dentro do escopo de um
+loop e funcionam como na linguagem C, interrompem ou continuam a execução do loop mais interno.
+
+exemplos:
+______________________________________________________
+for (initializationStatement; testExpression; updateStatement)
+{
+    // statements inside the body of loop
+}
+______________________________________________________
+while (condition) {
+  // code block to be executed
+}
+______________________________________________________
+int main(void)
+{
+  float nota1=0,nota2=0,media=0;
+  int resp;
+  
+  do
+  {
+    printf("Digite a primeira nota: ");
+    scanf("%f",&nota1);
+    printf("Digite a segunda nota: ");
+    scanf("%f",&nota2);
+    
+    media = (nota1 + nota2)/2;
+    printf("Media do aluno = %f\n",media);
+    
+    printf("Digite 1 para continuar ou 2 para sair\n");
+    scanf("%d", &resp);
+  
+  }while (resp==1);
+  
+  return 0;
+}
+______________________________________________________
+
+                Funções
+
+EZL suporta funções, mas com funcionalidades limitadas do que a linguagem C. Não suportamos
+parâmetros padrão. Não oferecemos suporte à prototipagem de funções nem à sobrecarga de funções.
+Instruções de retorno são permitidas dentro do escopo de uma função. E as funções só podem ser definidas no
+Âmbito global.
+
+exemplo:
+______________________________________________________
+int fibonacci(int number) {
+return fibonacci(number - 1) + fibonacci(number - 2);
+}
+______________________________________________________
+
+                Expressões
+No EZL, oferecemos suporte a expressões complexas semelhantes às da linguagem C. Apoiamos quase todo o
+conjunto de operadores suportados pela linguagem C com a mesma precedência e associatividade.
+
+exemplo:
+______________________________________________________
+
+(((++x) = y++) = (5 * 200 - MAX) ^ (1 << id)) = (z = 3);
+______________________________________________________
+
+                Comentários
+
+EZL suporta os mesmos estilos de comentário da linguagem C. Os comentários podem ser:
+
+• Comentário de linha
+// Este é um comentário de linha
+
+• Bloquear comentário (comentário de várias linhas)
+/**
+* Este é um comentário em bloco
+* que pode abranger
+* várias linhas
+*/
+
+            [Erros detectados]:
+Nesta seção, listarei alguns dos erros de sintaxe e semântica que o EZL pode detectar.
+
+Erros de sintaxe
+Erros relacionados ao escopo:
+
+1. Blocos de código ou instruções (que não sejam variáveis, constantes e declaração/definição de função)
+no âmbito global.
+2. Instrução continue fora dos escopos for, while ou do-while.
+3. Break-statement fora dos escopos for, while, do-while ou switch.
+4. Declaração de retorno fora do escopo da função.
+5. Case e default fora do escopo do switch.
+
+Outros erros de sintaxe:
+1. Variável ou constante declarada com tipo void.
+2. Declaração constante sem inicialização.
+3. Qualquer outra sintaxe inválida
+
+Erros semânticos
+
+Erros relacionados a identificador/expressão:
+1. Redeclaração do identificador no mesmo escopo.
+2. Acesso de identificador não declarado.
+3. Atribuição constante após declaração.
+4. Tipos de operandos inválidos. (ou seja, operandos do tipo void ou ponteiro para função).
+5. Operando flutuante para operador de módulo.
+6. Operando flutuante para operadores bit a bit.
+7. Uso de variável não inicializada.
+8. Operadores de incremento e decremento com operando de valor r.
+
+Erros relacionados à instrução switch
+1. Comandos switch e case com expressão não inteira.
+2. Enunciado de case com expressão não constante.
+3. Vários rótulos default no escopo do switch.
+4. Múltiplos rótulos case com a mesma expressão constante no escopo do switch.
+5. Inicialização de variáveis ​​cruzadas na instrução switch.
+
+Erros relacionados à função:
+1. Valor retornado na função void.
+2. Void retornado na função de valor digitado.
+3. Chamada de variável ou constante como uma função.
+4. Chamada de função com mais/menos argumentos que seus parâmetros.
+5. Chamada de função com tipo de argumento inválido (ou seja, argumento do tipo void ou ponteiro para função).
+6. Parâmetro da função com valor padrão.
+
+                [TOKENS]:
+Usando o Flex para escrever a expressão regular dos tokens permitidos pela EZLang.
+A tabela a seguir contém uma lista dessas expressões regulares.
+
+            Descrição do token Regex:
+        [0-9]+ Número inteiro positivo
+        (([0-9]*\.[0-9]+)|([0-9]+\.[0-9]*)) Número flutuante positivo
+        ([eE][-+]?{INTEGER}) Exponenciação
+        ({INTEIRO}{EXP}|{FLOAT}{EXP}?) Número real positivo
+        [_a-zA-Z]([_a-zA-Z]|[0-9])* Identificador
+        (\'.\') Valor do caractere
+        Valores booleanos "true", "false"
+        "void", "bool", "char", "int", "float" Tipos de dados
+        "if", "else", "switch", "case", "default",
+        "para", "fazer", "enquanto", "quebrar", "continuar",
+        "retorno", "const"
+
+        [Palavras-chave reservadas]:
+                "=",
+            "+", "-", "*", "/", "%",
+            "&", "|", "^", "~", ">>", "<<",
+            ">", ">=", "<", "<=", "==", "!=",
+            "&&", "||", "!",
+            "++", "--",
+
+        [Operadores semelhantes à linguagem C]:
+
+    "(", ")", "{", "}", ",", ":", ";" Outros tokens permitidos
+    "//"(.)* Comentário de linha
+    [ \t\r\n]+ Espaços em branco
+
+       [Regras de produção]:
+
+Usando o Bison para escrever as regras de produção que definem a sintaxe EZLang.
+Usando os recursos de precedência e associatividade do Bison para resolver a seguinte ambiguidade:
+1. A precedência e associatividade dos operadores matemáticos.
+2. O problema do else pendente.
+A tabela a seguir contém uma lista das regras de produção usadas.
+Usando a seguinte convenção de nomenclatura para os símbolos abaixo:
+• Palavras em maiúsculas para símbolos terminais
+• Palavras minúsculas para símbolos não terminais
+
+        [Regra de Produção de Sintaxe]:
+            Regras principais:
+𝑝𝑟𝑜𝑔𝑟𝑎𝑚 → 𝜀
+𝑝𝑟𝑜𝑔𝑟𝑎𝑚 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 → 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘 → '{' '}'
+𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘 → '{' 𝑠𝑡𝑚𝑡_𝑙𝑖𝑠𝑡 '}'
+𝑠𝑡𝑚𝑡 → 𝐵𝑅𝐸𝐴𝐾 ';' | 𝐶𝑂𝑁𝑇𝐼𝑁𝑈𝐸 ';' | ';'
+𝑠𝑡𝑚𝑡 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ';'
+𝑠𝑡𝑚𝑡 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ';'
+𝑠𝑡𝑚𝑡 → 𝑖𝑓_𝑠𝑡𝑚𝑡 | 𝑠𝑤𝑖𝑡𝑐ℎ_𝑠𝑡𝑚𝑡 | 𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡
+𝑠𝑡𝑚𝑡 → 𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 | 𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 | 𝑑𝑜_𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 ';'
+𝑠𝑡𝑚𝑡 → 𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛 | 𝑟𝑒𝑡𝑢𝑟𝑛_𝑠𝑡𝑚𝑡 ';'
+            Declaração de Variáveis/Constantes
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝐶𝑂𝑁𝑆𝑇 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 '=' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝐶𝑂𝑁𝑆𝑇 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 '=' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡 '=' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡
+𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 → 𝑚𝑢𝑙𝑡𝑖_𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 ',' 𝑖𝑑𝑒𝑛𝑡 '=' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+            Regras de Expressões
+𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 → 𝑒𝑥𝑝𝑟1 | 𝑒𝑥𝑝𝑟2 | 𝑒𝑥𝑝𝑟3
+𝑒𝑥𝑝𝑟1 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝑂𝑃𝑅𝑏𝑖𝑛𝑎𝑟𝑦 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑒𝑥𝑝𝑟1 → 𝑂𝑃𝑅𝑢𝑛𝑎𝑟𝑦 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+Note: 𝑂𝑃𝑅𝑏𝑖𝑛𝑎𝑟𝑦 is being substituted by all binary operators and 𝑂𝑃𝑅𝑢𝑛𝑎𝑟𝑦 is being substituted by all
+unary operators except increment and decrement operators
+𝑒𝑥𝑝𝑟2 → 𝐼𝑁𝐶 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝐷𝐸𝐶 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑒𝑥𝑝𝑟2 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝐼𝑁𝐶 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 𝐷𝐸𝐶
+𝑒𝑥𝑝𝑟3 → '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')'
+𝑒𝑥𝑝𝑟3 → 𝑣𝑎𝑙𝑢𝑒 | 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 | 𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛_𝑐𝑎𝑙𝑙
+            Regras de Ramos
+𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦 → 𝑠𝑡𝑚𝑡 | 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑖𝑓_𝑠𝑡𝑚𝑡 → 𝐼𝐹 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑖𝑓_𝑠𝑡𝑚𝑡 → 𝐼𝐹 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦 𝐸𝐿𝑆𝐸 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑠𝑤𝑖𝑡𝑐ℎ_𝑠𝑡𝑚𝑡 → 𝑆𝑊𝐼𝑇𝐶𝐻 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡 → 𝐶𝐴𝑆𝐸 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ':' 𝑠𝑡𝑚𝑡
+𝑐𝑎𝑠𝑒_𝑠𝑡𝑚𝑡 → 𝐷𝐸𝐹𝐴𝑈𝐿𝑇 ':' 𝑠𝑡𝑚𝑡
+𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 → 𝑊𝐻𝐼𝐿𝐸 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑑𝑜_𝑤ℎ𝑖𝑙𝑒_𝑠𝑡𝑚𝑡 → 𝐷𝑂 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦 𝑊𝐻𝐼𝐿𝐸 '(' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 ')'
+𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 → 𝐹𝑂𝑅 '(' 𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 ';' 𝑓𝑜𝑟_𝑒𝑥𝑝𝑟 ';' 𝑓𝑜𝑟_𝑒𝑥𝑝𝑟 ')' 𝑏𝑟𝑎𝑛𝑐ℎ_𝑏𝑜𝑑𝑦
+𝑓𝑜𝑟_𝑠𝑡𝑚𝑡 → 𝜀 | 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑓𝑜𝑟_𝑒𝑥𝑝𝑟 → 𝜀 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+
+            Regras de Funções
+𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛 → 𝑡𝑦𝑝𝑒 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 '(' 𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡 ')' 𝑠𝑡𝑚𝑡_𝑏𝑙𝑜𝑐𝑘
+𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡 → 𝜀 | 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙
+𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 → 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙 | 𝑝𝑎𝑟𝑎𝑚_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑣𝑎𝑟_𝑑𝑒𝑐𝑙
+𝑓𝑢𝑛𝑐𝑡𝑖𝑜𝑛_𝑐𝑎𝑙𝑙 → 𝐼𝐷𝐸𝑁𝑇𝐼𝐹𝐼𝐸𝑅 '(' 𝑎𝑟𝑔_𝑙𝑖𝑠𝑡 ')'
+𝑎𝑟𝑔_𝑙𝑖𝑠𝑡 → 𝜀 | 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 → 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝑎𝑟𝑔_𝑙𝑖𝑠𝑡_𝑒𝑥𝑡 ',' 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛
+𝑟𝑒𝑡𝑢𝑟𝑛_𝑠𝑡𝑚𝑡 → 𝑅𝐸𝑇𝑈𝑅𝑁 𝑒𝑥𝑝𝑟𝑒𝑠𝑠𝑖𝑜𝑛 | 𝑅𝐸𝑇𝑈𝑅𝑁
+Other Rules
+𝑡𝑦𝑝𝑒 → 𝑇𝑌𝑃𝐸_𝑉𝑂𝐼𝐷 | 𝑇𝑌𝑃𝐸_𝐵𝑂𝑂𝐿 | 𝑇𝑌𝑃𝐸_𝐶𝐻𝐴𝑅 | 𝑇𝑌𝑃𝐸_𝐼𝑁𝑇 | 𝑇𝑌𝑃𝐸_𝐹𝐿𝑂𝐴𝑇
+𝑣𝑎𝑙𝑢𝑒 → 𝐵𝑂𝑂𝐿 | 𝐶𝐻𝐴𝑅 |𝐼𝑁𝑇𝐸𝐺𝐸𝑅 | 𝐹𝐿𝑂𝐴𝑇
+
+            Quádruplos
+A tabela a seguir contém uma lista dos quádruplos gerados pela EZLang.
+Quase todo quádruplo está associado a um tipo. Os tipos definem o tipo de dados e o tamanho (número de
+bytes) dos operandos e o resultado dos quádruplos, salvo indicação em contrário.
+Os quádruplos funcionam da seguinte maneira:
+1. Extrai os operandos (se houver) do topo da pilha, dependendo de seu tipo.
+2. Aplica a operação definida pelo quádruplo.
+3. Insere o resultado (se disponível) de volta no topo da pilha.
+Na tabela a seguir, denotamos o topo (o último elemento) da pilha como 𝑆1 e o 2º último elemento
+da pilha como 𝑆2.
+
+        Operações dos Quádruplos:
+ADD_<type> 𝑆1 ← (𝑆2 + 𝑆1)
+SUB_<type> 𝑆1 ← (𝑆2 − 𝑆1)
+MUL_<type> 𝑆1 ← (𝑆2 ∗ 𝑆1)
+DIV_<type> 𝑆1 ← (𝑆2/𝑆1)
+MOD_<type> 𝑆1 ← (𝑆2 𝑀𝑂𝐷 𝑆1)
+NEG_<type> 𝑆1 ← (−𝑆1)
+AND_<type> 𝑆1 ← (𝑆2 𝐴𝑁𝐷 𝑆1)
+OR_<type> 𝑆1 ← (𝑆2 𝑂𝑅 𝑆1)
+XOR_<type> 𝑆1 ← (𝑆2 𝑋𝑂𝑅 𝑆1)
+NOT_<type> 𝑆1 ← 𝑁𝑂𝑇(𝑆1)
+SHL_<type> 𝑆1 ← (𝑆2 ≪ 𝑆1)
+SHR_<type> 𝑆1 ← (𝑆2 ≫ 𝑆1)
+GT_<type> 𝑆1 ← (𝑆2 > 𝑆1), O resultado é booleano
+10 | Página
+GTE_<tipo> 𝑆1 ← (𝑆2 ≥ 𝑆1), o resultado é booleano.
+LT_<tipo> 𝑆1 ← (𝑆2 < 𝑆1), o resultado é booleano.
+LTE_<tipo> 𝑆1 ← (𝑆2 ≤ 𝑆1), o resultado é booleano.
+EQ_<tipo> 𝑆1 ← (𝑆2 = 𝑆1), o resultado é booleano.
+NEQ_<tipo> 𝑆1 ← (𝑆2 ≠ 𝑆1), o resultado é booleano.
+Tipo de conversão quádrupla
+<tipo>_TO_<tipo> Converte 𝑆1 do tipo LHS para o tipo RHS.
+Empilhar Quádruplos
+PUSH_<tipo> <valor> Empurra <valor> para o topo da pilha.
+POP_<tipo> <dst> Mostra 𝑆1 e salva em <dst>.
+salto quádruplo
+JMP <rótulo> Salto incondicional para o rótulo fornecido.
+JNZ_<tipo> <rótulo> Pule para o rótulo fornecido se 𝑆1 não for igual a zero.
+JZ_<tipo> <rótulo> Pule para o rótulo fornecido se 𝑆1 for igual a zero.
+Quádruplos relacionados à função
+PROC <ident> Define um novo procedimento.
+CALL <ident> Chama um procedimento já definido.
+RET Retorno de um procedimento
+
