@@ -208,15 +208,6 @@ gcc <saída>.c -o <lexer_name>.exe
 
 Onde `<saída>.c` é o nome do arquivo C lexer gerado e `<nome_lexer>.exe` é o nome do programa lexer compilado.
 
-# Como usar a GUI
-A GUI é construída usando python3 e PyQt5.
 
-Para iniciar a GUI:
-1. Navegue até a pasta `gui/`.
-2. Rode no console:
-
-     ```Console
-     python3 main.py <ezl> <Quadruplues>.txt <SymbolsTable>.txt
-     ```
 
 
