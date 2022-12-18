@@ -1,0 +1,22 @@
+for (initializationStatement; testExpression; updateStatement){
+while (condition) {
+   // code block to be executed
+int main(void){
+   float grade1=0, grade2=0,average=0;
+   int resp;
+  
+     printf("Enter the first grade: ");
+     scanf("%f",&note1);
+     printf("Enter the second note: ");
+     scanf("%f",&note2);
+    
+     average = (grade1 + grade2)/2;
+     printf("Student average = %f\n",average);
+    
+     printf("Type 1 to continue or 2 to exit\n");
+     scanf("%d", &resp);
+  
+   }while(resp==1);
+  
+   return 0;
+   }
