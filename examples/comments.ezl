@@ -1,0 +1,11 @@
+
+//• Line comment
+// This is a one-line comment
+
+//• Block comment (multi-line comment)
+
+/**
+* This is a block comment
+* which may cover
+* multiple lines
+*/
