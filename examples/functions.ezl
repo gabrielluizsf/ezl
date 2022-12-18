@@ -1,0 +1,8 @@
+int fibonacci(int number) {
+return fibonacci(number - 1) + fibonacci(number - 2);
+}
+void func(){}
+
+char helloWorld(){
+return "Hello World";
+}
