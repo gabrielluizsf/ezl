@@ -1,0 +1,11 @@
+
+switch(state) {
+case 1:
+case 2:
+/* do something */
+case RUNNING: // RUNNING must be set to constant
+/* do something */
+break;
+default:
+/* default */
+}
